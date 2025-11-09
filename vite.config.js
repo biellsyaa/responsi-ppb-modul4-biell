@@ -1,4 +1,3 @@
-// vite.config.js
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import { VitePWA } from "vite-plugin-pwa";
@@ -7,13 +6,14 @@ export default defineConfig({
   plugins: [
     react(),
     VitePWA({
-      // Service worker akan auto-update saat ada versi baru
       registerType: "autoUpdate",
 
-      // Asset tambahan yang akan dicache
-      includeAssets: ["favicon.ico", "robots.txt", "apple-touch-icon.png"],
+      includeAssets: [
+        "favicon.ico",
+        "robots.txt",
+        "apple-touch-icon.png"
+      ],
 
-      // Manifest PWA
       manifest: {
         name: "My PWA Demo",
         short_name: "MyPWA",
@@ -22,6 +22,7 @@ export default defineConfig({
         background_color: "#ffffff",
         display: "standalone",
         start_url: "/",
+        scope: "/",
         icons: [
           {
             src: "pwa-192x192.png",
@@ -32,24 +33,52 @@ export default defineConfig({
             src: "pwa-512x512.png",
             sizes: "512x512",
             type: "image/png"
+          },
+          {
+            src: "pwa-512x512.png",
+            sizes: "512x512",
+            type: "image/png",
+            purpose: "maskable"
           }
         ]
       },
 
-      // Workbox config untuk caching otomatis
       workbox: {
-        // Semua file js, css, html, png, svg akan dicache
-        globPatterns: ["**/*.{js,css,html,png,svg}"]
+        globPatterns: ["**/*.{js,css,html,ico,png,svg}"],
+        runtimeCaching: [
+          {
+            urlPattern: ({ request }) =>
+              request.destination === "document" ||
+              request.destination === "script" ||
+              request.destination === "style",
+            handler: "NetworkFirst",
+            options: {
+              cacheName: "app-shell",
+              expiration: { maxEntries: 50, maxAgeSeconds: 86400 }
+            }
+          },
+          {
+            urlPattern: ({ request }) =>
+              request.destination === "image",
+            handler: "CacheFirst",
+            options: {
+              cacheName: "images-cache",
+              expiration: { maxEntries: 50, maxAgeSeconds: 604800 }
+            }
+          }
+        ]
+      },
+
+      devOptions: {
+        enabled: true
       }
     })
   ],
 
-  // Konfigurasi dev server
   server: {
     port: 5174
   },
 
-  // Optional: build options kalau mau customize
   build: {
     outDir: "dist",
     sourcemap: true
