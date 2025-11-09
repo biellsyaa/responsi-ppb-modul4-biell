@@ -1,9 +1,12 @@
 import React from "react";
+import everest from "../assets/everest.jpeg";
+import samosir from "../assets/samosir.jpeg";
+import amazon from "../assets/amazon.avif";
 
 const data = [
-  { id: 1, title: "Gunung Everest", tag: "Gunung", img: "https://encrypted-tbn0.gstatic.com/licensed-image?q=tbn:ANd9GcT4wdjh7Mxr9QMB3_0MwNtkOE30ooRJErA-Bsr0NGYkjBi6PIP2QFeUbYKQS00AWueOCjdDwAzKGB7QPcSLDFjIh7E&s=19" },
-  { id: 2, title: "Pulau Samosir", tag: "Pulau", img: "https://encrypted-tbn0.gstatic.com/licensed-image?q=tbn:ANd9GcRZUAPaCnNNlJ4xX1JuGpVWMY80HmVfDAn7tzXb7YIvfM5Qc9YDd6ljHPbkLmoDZVYm7BIrIzLqiRuTmwAeW8EKThT6&s=19" },
-  { id: 3, title: "Hutan Amazon", tag: "Taman", img: "https://encrypted-tbn0.gstatic.com/licensed-image?q=tbn:ANd9GcTfA2fQVDE0NvOiOsOggmxBKybp2LJuKQJp-F3N3-oxmVI6E1oOofzjN-qC0he5Qv6MoqjkQVqOA7MC32G-gzKvwLc&s=19" }
+  { id: 1, title: "Gunung Everest", tag: "Gunung", img: everest},
+  { id: 2, title: "Pulau Samosir", tag: "Pulau", img: samosir},
+  { id: 3, title: "Hutan Amazon", tag: "Hutan", img: amazon},
 ];
 
 export default function Destinasi(){
